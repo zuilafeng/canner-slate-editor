@@ -205,6 +205,7 @@ export default class EditorComponent extends React.Component<Props, State> {
       galleryConfig,
       menuToolbarOption,
       readOnly,
+      customPlugins
       ...rest
     } = this.props;
     const { isFull } = this.state;
@@ -239,6 +240,7 @@ export default class EditorComponent extends React.Component<Props, State> {
           <EditorContainer isFull={isFull}>
             <CannerEditor
               value={value}
+              plugins={customPlugins}
               onChange={onChange}
               readOnly={readOnly}
             />
@@ -258,14 +260,14 @@ class CannerEditor extends React.Component<EditorProps> {
   }
 
   render() {
-    const { value, onChange, readOnly } = this.props;
+    const { value, onChange, readOnly, customPlugins = [] } = this.props;
     return (
       <Editor
         className="markdown-body"
         value={value}
         readOnly={readOnly}
         onChange={onChange}
-        plugins={plugins}
+        plugins={customPlugins.join(plugins)}
       />
     );
   }
